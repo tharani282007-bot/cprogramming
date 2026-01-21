@@ -1,0 +1,8 @@
+#include<stdio.h>
+#include<math.h>
+int main() {
+    float area;
+    printf("Enter the area:");
+    scanf("%f",&area);
+    printf("%f",sqrt(area));
+}
