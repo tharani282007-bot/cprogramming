@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Structure for a doubly linked list node
+struct Node {
+    int stationCode;
+    struct Node *prev;
+    struct Node *next;
+};
+
+// Function to create a new node
+struct Node* createNode(int code) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->stationCode = code;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
+}
+
+// Function to insert a station at the end
+void insertAtEnd(struct Node **head, int code) {
+    struct Node* newNode = createNode(code);
+
+    if (*head == NULL) {
+        *head = newNode;
+        return;
+    }
+
+    struct Node* temp = *head;
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+// Function to display the route from start to end
+void displayRoute(struct Node *head) {
+    struct Node* temp = head;
+
+    if (temp == NULL) {
+        printf("Route is empty.\n");
+        return;
+    }
+
+    printf("Train Route (Start to End): ");
+    while (temp != NULL) {
+        printf("%d ", temp->stationCode);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+    int n, code;
+
+    printf("Enter number of stations: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("Enter station code %d: ", i + 1);
+        scanf("%d", &code);
+        insertAtEnd(&head, code);
+    }
+
+    displayRoute(head);
+
+    return 0;
+}

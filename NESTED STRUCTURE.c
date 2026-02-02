@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <string.h> // Required for strcpy
+
+// 1. Create an Address structure
+struct Address {
+    char city[50];
+    int pincode;
+};
+
+// 2. Create a Student structure containing the Address structure
+struct Student {
+    int student_id;
+    char student_name[50];
+    struct Address address; // Nested structure
+};
+
+int main() {
+    // Declare a Student structure variable and initialize it
+    struct Student s1;
+
+    // Assign values to the structure fields
+    s1.student_id = 101;
+    strcpy(s1.student_name, "Alice Smith");
+    strcpy(s1.address.city, "New York");
+    s1.address.pincode = 10001;
+
+    // 3. Use a pointer to structure to access and print the details
+    // Declare a pointer to a Student structure and point it to s1
+    struct Student *student_ptr;
+    student_ptr = &s1;
+
+    // Print the details using the structure pointer (using the arrow operator '->')
+    printf("Student Details (accessed via pointer):\n");
+    printf("ID: %d\n", student_ptr->student_id);
+    printf("Name: %s\n", student_ptr->student_name);
+    // Access nested structure fields using the arrow operator followed by the dot operator
+    printf("City: %s\n", student_ptr->address.city);
+    printf("Pincode: %d\n", student_ptr->address.pincode);
+
+    return 0;
+}
